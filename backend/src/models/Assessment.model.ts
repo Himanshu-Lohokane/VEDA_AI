@@ -72,7 +72,6 @@ const AssessmentSchema = new Schema<IAssessment>(
 );
 
 // Create indexes for performance
-AssessmentSchema.index({ jobId: 1 });
 AssessmentSchema.index({ status: 1 });
 AssessmentSchema.index({ createdAt: -1 });
 

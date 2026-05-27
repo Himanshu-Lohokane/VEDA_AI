@@ -103,7 +103,6 @@ const QuestionPaperSchema = new Schema<IQuestionPaper>(
 );
 
 // Create indexes for performance
-QuestionPaperSchema.index({ jobId: 1 });
 QuestionPaperSchema.index({ assessmentId: 1 });
 QuestionPaperSchema.index({ createdAt: -1 });
 

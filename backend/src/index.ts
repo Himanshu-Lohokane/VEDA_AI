@@ -78,7 +78,7 @@ app.get('/', (_req, res) => {
 });
 
 // ─── FILE UPLOAD ─────────────────────────────────────────────────────────────
-app.post('/api/upload', upload.single('file'), async (req, res) => {
+app.post(['/api/upload', '/upload'], upload.single('file'), async (req, res) => {
   console.log('[UPLOAD] Received file upload request');
   try {
     if (!req.file) {
@@ -98,7 +98,7 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
 });
 
 // ─── CREATE ASSESSMENT ────────────────────────────────────────────────────────
-app.post('/api/assessments', async (req, res) => {
+app.post(['/api/assessments', '/assessments'], async (req, res) => {
   console.log('[ASSESSMENT] Received create request');
   console.log('[ASSESSMENT] Body:', JSON.stringify(req.body, null, 2));
   try {
@@ -148,7 +148,7 @@ app.post('/api/assessments', async (req, res) => {
 });
 
 // ─── JOB STATUS ───────────────────────────────────────────────────────────────
-app.get('/api/jobs/:jobId', (req, res) => {
+app.get(['/api/jobs/:jobId', '/jobs/:jobId'], (req, res) => {
   const { jobId } = req.params;
   const progress = jobProgress[jobId];
   if (!progress) {
@@ -160,7 +160,7 @@ app.get('/api/jobs/:jobId', (req, res) => {
 });
 
 // ─── GET PAPER ────────────────────────────────────────────────────────────────
-app.get('/api/papers/:paperId', async (req, res) => {
+app.get(['/api/papers/:paperId', '/papers/:paperId'], async (req, res) => {
   const { paperId } = req.params;
   console.log(`[PAPER] Fetching paper: ${paperId}`);
   try {
@@ -198,7 +198,7 @@ app.get('/api/papers/:paperId', async (req, res) => {
 });
 
 // ─── REGENERATE ───────────────────────────────────────────────────────────────
-app.post('/api/papers/:paperId/regenerate', async (req, res) => {
+app.post(['/api/papers/:paperId/regenerate', '/papers/:paperId/regenerate'], async (req, res) => {
   const { paperId } = req.params;
   console.log(`[REGEN] Regenerating paper: ${paperId}`);
   try {
