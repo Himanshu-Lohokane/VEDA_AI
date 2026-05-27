@@ -60,8 +60,7 @@ export const connectDatabase = async (): Promise<void> => {
       console.error('Error details:', error.message);
     }
     
-    // Exit process with failure code
-    process.exit(1);
+    throw error;
   }
 };
 
