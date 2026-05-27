@@ -86,6 +86,13 @@ app.post(['/api/upload', '/upload'], upload.single('file'), async (req, res) => 
       return res.status(400).json({ error: 'No file provided' });
     }
     console.log(`[UPLOAD] File: ${req.file.originalname} (${req.file.mimetype}, ${req.file.size} bytes)`);
+
+    // Ensure database is fully connected before accessing native db object for GridFS
+    if (!isConnected()) {
+      console.log('[UPLOAD] Waiting for database connection to be ready...');
+      await connectDatabase();
+    }
+
     const db = mongoose.connection.db!;
     const fileService = new FileStorageService(db);
     const fileId = await fileService.uploadFile(req.file);
@@ -256,6 +263,10 @@ async function runGeneration(
     if (formData.fileId) {
       console.log(`[GEN:${jobId}] Extracting file content from fileId: ${formData.fileId}`);
       try {
+        if (!isConnected()) {
+          console.log(`[GEN:${jobId}] Waiting for database connection...`);
+          await connectDatabase();
+        }
         const db = mongoose.connection.db!;
         const fileService = new FileStorageService(db);
         fileContent = await fileService.extractTextContent(formData.fileId);
