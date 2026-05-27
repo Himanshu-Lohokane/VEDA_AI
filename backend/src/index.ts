@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -11,7 +12,8 @@ import { Assessment } from './models/Assessment.model';
 import { QuestionPaper } from './models/QuestionPaper.model';
 import { QuestionType } from './types';
 
-dotenv.config();
+// Load .env from the project root (works for both `ts-node src/` and compiled `dist/`)
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 const app = express();
 const PORT = process.env.PORT || 3001;

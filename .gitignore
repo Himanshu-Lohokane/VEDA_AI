@@ -7,8 +7,6 @@ node_modules/
 .env.local
 .env.*.local
 *.env
-backend/.env
-frontend/.env.local
 
 # Kiro specs (may contain sensitive data)
 .kiro/
